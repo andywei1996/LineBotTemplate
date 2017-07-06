@@ -66,7 +66,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" 幹!")).Do(); err != nil {
 					log.Print(err)
 				}
-			}
+// 			}
 		}
 	}
 }
