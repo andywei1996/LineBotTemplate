@@ -50,12 +50,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
-			case *linebot.TextMessage:
-				if (message.Text == "幹") {
+			case *linebot.TextMessage:(
+				if message.Text == "幹" {
 					err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" 幹!")).Do()
 				}
-				else{
-					err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" 幹!")).Do();
+				else {
+					err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" OK!")).Do()
 				}
 				if err != nil {
 					log.Print(err)
@@ -65,6 +65,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" 幹!")).Do(); err != nil {
 				// 	log.Print(err)
 				// }
+			)
 			}
 		}
 	}
