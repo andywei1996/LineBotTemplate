@@ -26,7 +26,7 @@ var bot *linebot.Client
 func main() {
 	var err error
 	bot, err = linebot.New(os.Getenv("ChannelSecret"), os.Getenv("ChannelAccessToken"))
-	log.Println("Bot:", bot, " err:", err)
+	log.Println("Bot:", bot, " err:", err)	//在log中加入紀錄
 	http.HandleFunc("/callback", callbackHandler)
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
@@ -45,13 +45,22 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+
+
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" 幹!")).Do(); err != nil {
+				if (message.Text == "幹") err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" 幹!")).Do();
+				else err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" 幹!")).Do();
+				if err != nil {
 					log.Print(err)
 				}
+
+
+				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+" 幹!")).Do(); err != nil {
+				// 	log.Print(err)
+				// }
 			}
 		}
 	}
